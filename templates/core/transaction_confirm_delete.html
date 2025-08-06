@@ -1,10 +1,15 @@
 {% extends "base.html" %}
+{% load django_bootstrap5 %}
 {% block title %}Delete transaction{% endblock %}
 {% block content %}
-<h2>Delete transaction</h2>
-<form method="post">
-  {% csrf_token %}
-  <p>Are you sure you want to delete transaction {{ object }}?</p>
-  <button class="btn btn-danger" type="submit">Delete</button>
-</form>
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h2 class="card-title mb-4">Delete transaction</h2>
+    <form method="post">
+      {% csrf_token %}
+      <p>Are you sure you want to delete transaction {{ object }}?</p>
+      {% bootstrap_button button_type="submit" content="Delete" button_class="btn-danger" %}
+    </form>
+  </div>
+</div>
 {% endblock %}

@@ -10,3 +10,4 @@ black
 isort
 flake8
 django-autocomplete-light
+django-bootstrap5
