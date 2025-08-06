@@ -1,0 +1,13 @@
+[
+  {"model": "reference.status", "pk": 1, "fields": {"name": "Бизнес"}},
+  {"model": "reference.status", "pk": 2, "fields": {"name": "Личное"}},
+  {"model": "reference.status", "pk": 3, "fields": {"name": "Налог"}},
+  {"model": "reference.txtype", "pk": 1, "fields": {"name": "Пополнение"}},
+  {"model": "reference.txtype", "pk": 2, "fields": {"name": "Списание"}},
+  {"model": "reference.category", "pk": 1, "fields": {"name": "Инфраструктура", "tx_type": 2}},
+  {"model": "reference.category", "pk": 2, "fields": {"name": "Маркетинг", "tx_type": 2}},
+  {"model": "reference.subcategory", "pk": 1, "fields": {"name": "VPS", "category": 1}},
+  {"model": "reference.subcategory", "pk": 2, "fields": {"name": "Proxy", "category": 1}},
+  {"model": "reference.subcategory", "pk": 3, "fields": {"name": "Farpost", "category": 2}},
+  {"model": "reference.subcategory", "pk": 4, "fields": {"name": "Avito", "category": 2}}
+]
