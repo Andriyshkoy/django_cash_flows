@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 
@@ -6,6 +7,9 @@ from reference.models import Category, Status, SubCategory, TxType
 
 class Transaction(models.Model):
     created_at = models.DateField(auto_now_add=True)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="transactions"
+    )
     status = models.ForeignKey(
         Status, on_delete=models.PROTECT, related_name="transactions"
     )

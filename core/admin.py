@@ -13,7 +13,8 @@ class TransactionAdmin(admin.ModelAdmin):
         "category",
         "sub_category",
         "amount",
+        "user",
     )
-    list_filter = ("status", "tx_type", "category", "sub_category")
+    list_filter = ("status", "tx_type", "category", "sub_category", "user")
     search_fields = ("comment",)
     date_hierarchy = "created_at"

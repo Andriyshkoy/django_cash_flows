@@ -7,6 +7,7 @@ class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaction
         fields = "__all__"
+        read_only_fields = ("user",)
 
     def validate(self, attrs):
         sub_category = attrs["sub_category"]

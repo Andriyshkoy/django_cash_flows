@@ -1,4 +1,5 @@
 import pytest
+from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 from rest_framework.test import APIClient
@@ -10,11 +11,14 @@ from .models import Transaction
 
 @pytest.fixture
 def data(db):
+    user_model = get_user_model()
+    user = user_model.objects.create_user(username="user", password="password")
     status = Status.objects.create(name="Бизнес")
     tx_type = TxType.objects.create(name="Списание")
     category = Category.objects.create(name="Маркетинг", tx_type=tx_type)
     sub_category = SubCategory.objects.create(name="Avito", category=category)
     return {
+        "user": user,
         "status": status,
         "tx_type": tx_type,
         "category": category,
@@ -28,6 +32,7 @@ def test_transaction_validation(data):
     )
     with pytest.raises(ValidationError):
         Transaction.objects.create(
+            user=data["user"],
             status=data["status"],
             tx_type=data["tx_type"],
             category=wrong_category,
@@ -38,6 +43,13 @@ def test_transaction_validation(data):
 
 def test_transaction_api_create_and_filter(data):
     client = APIClient()
+    token_response = client.post(
+        reverse("token_obtain_pair"),
+        {"username": "user", "password": "password"},
+        format="json",
+    )
+    access = token_response.data["access"]
+    client.credentials(HTTP_AUTHORIZATION=f"Bearer {access}")
     response = client.post(
         reverse("transaction-list"),
         {

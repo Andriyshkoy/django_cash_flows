@@ -2,6 +2,7 @@ Django==5.2.4
 djangorestframework
 django-filter
 drf-spectacular
+djangorestframework-simplejwt
 pytest
 pytest-django
 pre-commit
