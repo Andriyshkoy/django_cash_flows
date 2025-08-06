@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Transaction{% endblock %}
 {% block content %}
 <h2>Transaction</h2>
@@ -7,4 +8,5 @@
   {{ form.as_p }}
   <button class="btn btn-primary" type="submit">Save</button>
 </form>
+<script src="{% static 'js/transaction_form.js' %}"></script>
 {% endblock %}

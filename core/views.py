@@ -5,6 +5,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
+from .forms import TransactionForm
 from .models import Transaction
 from .serializers import TransactionSerializer
 
@@ -42,14 +43,7 @@ class TransactionListView(LoginRequiredMixin, ListView):
 
 class TransactionCreateView(LoginRequiredMixin, CreateView):
     model = Transaction
-    fields = [
-        "status",
-        "tx_type",
-        "category",
-        "sub_category",
-        "amount",
-        "comment",
-    ]
+    form_class = TransactionForm
     template_name = "core/transaction_form.html"
     success_url = reverse_lazy("transactions")
 
@@ -60,14 +54,7 @@ class TransactionCreateView(LoginRequiredMixin, CreateView):
 
 class TransactionUpdateView(LoginRequiredMixin, UpdateView):
     model = Transaction
-    fields = [
-        "status",
-        "tx_type",
-        "category",
-        "sub_category",
-        "amount",
-        "comment",
-    ]
+    form_class = TransactionForm
     template_name = "core/transaction_form.html"
     success_url = reverse_lazy("transactions")
 
