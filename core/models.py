@@ -35,5 +35,18 @@ class Transaction(models.Model):
         self.full_clean()
         super().save(*args, **kwargs)
 
+    class Meta:
+        ordering = ("-created_at",)
+        unique_together = (
+            "user",
+            "status",
+            "tx_type",
+            "category",
+            "sub_category",
+            "amount",
+        )
+        verbose_name = "Тransaction"
+        verbose_name_plural = "Transactions"
+
     def __str__(self) -> str:
         return f"{self.created_at} {self.amount}"

@@ -1,3 +1,4 @@
+from dal import autocomplete
 from django import forms
 
 from reference.models import Category, SubCategory
@@ -38,3 +39,26 @@ class TransactionForm(forms.ModelForm):
 
     class Media:
         js = ["core/transaction_form.js"]
+
+
+class TransactionAdminForm(forms.ModelForm):
+    class Meta:
+        model = Transaction
+        fields = [
+            "status",
+            "tx_type",
+            "category",
+            "sub_category",
+            "amount",
+            "comment",
+        ]
+        widgets = {
+            "category": autocomplete.ModelSelect2(
+                url="category-autocomplete",
+                forward=("tx_type",),
+            ),
+            "sub_category": autocomplete.ModelSelect2(
+                url="sub-category-autocomplete",
+                forward=("category",),
+            ),
+        }

@@ -1,12 +1,12 @@
 from django.contrib import admin
 
-from .forms import TransactionForm
+from .forms import TransactionAdminForm
 from .models import Transaction
 
 
 @admin.register(Transaction)
 class TransactionAdmin(admin.ModelAdmin):
-    form = TransactionForm
+    form = TransactionAdminForm
     list_display = (
         "id",
         "created_at",

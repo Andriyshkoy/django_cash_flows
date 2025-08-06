@@ -4,6 +4,7 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
+from core.autocomplete import CategoryAutocomplete, SubCategoryAutocomplete
 from core.views import (
     TransactionCreateView,
     TransactionDeleteView,
@@ -41,6 +42,16 @@ urlpatterns = [
         "transactions/<int:pk>/delete/",
         TransactionDeleteView.as_view(),
         name="transaction-delete",
+    ),
+    path(
+        "category-autocomplete/",
+        CategoryAutocomplete.as_view(),
+        name="category-autocomplete",
+    ),
+    path(
+        "sub-category-autocomplete/",
+        SubCategoryAutocomplete.as_view(),
+        name="sub-category-autocomplete",
     ),
     path("api/", include(router.urls)),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
