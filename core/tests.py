@@ -66,3 +66,22 @@ def test_transaction_api_create_and_filter(data):
     response = client.get(reverse("transaction-list"), {"tx_type": data["tx_type"].id})
     assert response.status_code == 200
     assert response.data["count"] == 1
+
+
+def test_transaction_list_pagination(client, data):
+    user = data["user"]
+    client.force_login(user)
+    for i in range(11):
+        Transaction.objects.create(
+            user=user,
+            status=data["status"],
+            tx_type=data["tx_type"],
+            category=data["category"],
+            sub_category=data["sub_category"],
+            amount=1000 + i,
+        )
+    response = client.get(reverse("transactions"))
+    assert response.status_code == 200
+    assert len(response.context["object_list"]) == 10
+    response = client.get(reverse("transactions"), {"page": 2})
+    assert len(response.context["object_list"]) == 1

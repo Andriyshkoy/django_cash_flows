@@ -34,6 +34,7 @@ class TransactionViewSet(viewsets.ModelViewSet):
 class TransactionListView(LoginRequiredMixin, ListView):
     model = Transaction
     template_name = "core/transaction_list.html"
+    paginate_by = 2
 
     def get_queryset(self):
         return Transaction.objects.filter(user=self.request.user).order_by(
