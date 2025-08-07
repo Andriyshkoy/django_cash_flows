@@ -15,3 +15,5 @@ ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
 DATABASES = {"default": dj_database_url.config(env="DATABASE_URL", conn_max_age=600)}
 
 STATIC_ROOT = BASE_DIR / "static"
+
+CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",")
