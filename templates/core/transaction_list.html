@@ -3,6 +3,13 @@
 {% block title %}Transactions{% endblock %}
 {% block content %}
 <a class="btn btn-primary mb-3" href="{% url 'transaction-add' %}">Add transaction</a>
+
+<form method="get" class="mb-3">
+  {% bootstrap_form filter.form %}
+  {% bootstrap_button 'Filter' button_type='submit' %}
+  <a class="btn btn-secondary" href="{% url 'transactions' %}">Reset</a>
+</form>
+
 <table class="table">
   <thead>
     <tr>

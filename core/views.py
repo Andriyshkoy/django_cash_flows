@@ -1,10 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+from django.views.generic import CreateView, DeleteView, UpdateView
 from django_filters.rest_framework import DjangoFilterBackend
+from django_filters.views import FilterView
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
+from .filters import TransactionFilter
 from .forms import TransactionForm
 from .models import Transaction
 from .serializers import TransactionSerializer
@@ -31,10 +33,11 @@ class TransactionViewSet(viewsets.ModelViewSet):
         serializer.save(user=self.request.user)
 
 
-class TransactionListView(LoginRequiredMixin, ListView):
+class TransactionListView(LoginRequiredMixin, FilterView):
     model = Transaction
     template_name = "core/transaction_list.html"
     paginate_by = 10
+    filterset_class = TransactionFilter
 
     def get_queryset(self):
         return Transaction.objects.filter(user=self.request.user).order_by(
