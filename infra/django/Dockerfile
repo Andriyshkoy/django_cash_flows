@@ -9,5 +9,6 @@ ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 WORKDIR /app
 COPY --from=builder /install /usr/local
 COPY . .
+COPY infra/django/gunicorn.conf.py /gunicorn.conf.py
 RUN chmod +x infra/django/entrypoint.sh
 ENTRYPOINT ["infra/django/entrypoint.sh"]
