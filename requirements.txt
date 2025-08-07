@@ -11,3 +11,6 @@ isort
 flake8
 django-autocomplete-light
 django-bootstrap5
+psycopg2-binary
+python-dotenv
+dj-database-url
