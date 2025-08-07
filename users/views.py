@@ -5,6 +5,8 @@ from .forms import CustomUserCreationForm
 
 
 class SignUpView(CreateView):
+    """Allow new users to create an account."""
+
     form_class = CustomUserCreationForm
     success_url = reverse_lazy("login")
     template_name = "registration/register.html"

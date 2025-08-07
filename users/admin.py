@@ -6,4 +6,4 @@ from .models import User
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
-    pass
+    """Expose the custom :class:`User` model in the Django admin."""

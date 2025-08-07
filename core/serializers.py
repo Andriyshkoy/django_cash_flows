@@ -4,12 +4,16 @@ from .models import Transaction
 
 
 class TransactionSerializer(serializers.ModelSerializer):
+    """Serialize :class:`Transaction` objects for the API."""
+
     class Meta:
         model = Transaction
         fields = "__all__"
         read_only_fields = ("user",)
 
     def validate(self, attrs):
+        """Validate category and sub category consistency."""
+
         sub_category = attrs["sub_category"]
         category = attrs["category"]
         tx_type = attrs["tx_type"]
@@ -17,6 +21,6 @@ class TransactionSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Sub category must belong to category")
         if category.tx_type_id != tx_type.id:
             raise serializers.ValidationError(
-                "Category must belong to transaction type"
+                "Category must belong to transaction type",
             )
         return attrs

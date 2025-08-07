@@ -7,6 +7,8 @@ from .models import Transaction
 
 
 class TransactionForm(forms.ModelForm):
+    """Base form for creating and editing :class:`Transaction` objects."""
+
     class Meta:
         model = Transaction
         fields = [
@@ -19,6 +21,8 @@ class TransactionForm(forms.ModelForm):
         ]
 
     def __init__(self, *args, **kwargs):
+        """Dynamically limit category and sub category choices."""
+
         super().__init__(*args, **kwargs)
         tx_type_id = self["tx_type"].value() or self.initial.get("tx_type")
         category_id = self["category"].value() or self.initial.get("category")
@@ -38,10 +42,14 @@ class TransactionForm(forms.ModelForm):
             self.fields["sub_category"].queryset = SubCategory.objects.none()
 
     class Media:
+        """Include custom JavaScript for dynamic form behaviour."""
+
         js = ["core/transaction_form.js"]
 
 
 class TransactionAdminForm(forms.ModelForm):
+    """Form for the Django admin transaction interface."""
+
     class Meta:
         model = Transaction
         fields = [

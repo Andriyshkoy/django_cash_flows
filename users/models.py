@@ -2,4 +2,4 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    pass
+    """Extends Django's built-in user model without modifications."""

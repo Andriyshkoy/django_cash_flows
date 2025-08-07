@@ -5,6 +5,8 @@ User = get_user_model()
 
 
 class CustomUserCreationForm(UserCreationForm):
+    """Extend the default user creation form with additional fields."""
+
     class Meta(UserCreationForm.Meta):
         model = User
         fields = ("username", "email", "first_name", "last_name")

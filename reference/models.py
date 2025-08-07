@@ -2,6 +2,8 @@ from django.db import models
 
 
 class Status(models.Model):
+    """Represent the processing status of a transaction."""
+
     name = models.CharField(max_length=255, unique=True)
 
     class Meta:
@@ -10,10 +12,13 @@ class Status(models.Model):
         ordering = ["name"]
 
     def __str__(self) -> str:
+        """Return a readable representation of the status."""
         return self.name
 
 
 class TxType(models.Model):
+    """Represent a type of transaction (income or expense)."""
+
     name = models.CharField(max_length=255, unique=True)
 
     class Meta:
@@ -22,10 +27,13 @@ class TxType(models.Model):
         ordering = ["name"]
 
     def __str__(self) -> str:
+        """Return a readable representation of the transaction type."""
         return self.name
 
 
 class Category(models.Model):
+    """Group transactions of a specific type into logical buckets."""
+
     name = models.CharField(max_length=255, unique=True)
     tx_type = models.ForeignKey(
         TxType, on_delete=models.CASCADE, related_name="categories"
@@ -38,10 +46,13 @@ class Category(models.Model):
         ordering = ["name"]
 
     def __str__(self) -> str:
+        """Return a readable representation of the category."""
         return self.name
 
 
 class SubCategory(models.Model):
+    """Further classify transactions within a specific category."""
+
     name = models.CharField(max_length=255, unique=True)
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name="sub_categories"
@@ -54,4 +65,5 @@ class SubCategory(models.Model):
         ordering = ["name"]
 
     def __str__(self) -> str:
+        """Return a readable representation of the sub category."""
         return self.name

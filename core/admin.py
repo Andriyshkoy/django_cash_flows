@@ -6,6 +6,8 @@ from .models import Transaction
 
 @admin.register(Transaction)
 class TransactionAdmin(admin.ModelAdmin):
+    """Admin interface for :class:`Transaction` objects."""
+
     form = TransactionAdminForm
     list_display = (
         "id",
